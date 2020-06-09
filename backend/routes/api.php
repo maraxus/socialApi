@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/user/{id}/friends', function ($id) {
+    return 'Hello world '.$id;
+});
+Route::get('/user/{id}/friendsoffriends', function ($id) {
+    return 'Hello world '.$id;
+});
+Route::patch('/user/{id}/friends', function ($id) {
+    return 'Hello world '.$id;
 });
