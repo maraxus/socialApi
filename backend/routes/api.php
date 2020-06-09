@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/user/{username}/friends', function ($username,Request $request) {
     return 'Hello world '.$username;
-})->where('username', '[A-Za-z0-9]+');
-Route::get('/user/{username}/friendsoffriends', function ($username) {
+});
+Route::get('/user/{username}/friendsoffriends', function ($username, Request $request) {
     return 'Hello world '.$username;
-})->where('username', '[A-Za-z0-9]+');
-Route::patch('/user/{username}/friends', function ($username) {
+});
+Route::patch('/user/{username}/friends', function ($username, Request $request) {
     return 'Hello world '.$username;
-})->where('username', '[A-Za-z0-9]+');
+});
