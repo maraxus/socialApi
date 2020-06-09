@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/user/{id}/friends', function ($id) {
-    return 'Hello world '.$id;
-});
-Route::get('/user/{id}/friendsoffriends', function ($id) {
-    return 'Hello world '.$id;
-});
-Route::patch('/user/{id}/friends', function ($id) {
-    return 'Hello world '.$id;
-});
+Route::get('/user/{username}/friends', function ($username,Request $request) {
+    return 'Hello world '.$username;
+})->where('username', '[A-Za-z0-9]+');
+Route::get('/user/{username}/friendsoffriends', function ($username) {
+    return 'Hello world '.$username;
+})->where('username', '[A-Za-z0-9]+');
+Route::patch('/user/{username}/friends', function ($username) {
+    return 'Hello world '.$username;
+})->where('username', '[A-Za-z0-9]+');
