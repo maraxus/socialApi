@@ -1,27 +1,26 @@
 <?php
-namespace App\Repositories;
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace App\Repositories\Factories;
 
-use App\User;
+use App\Repositories\Models\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 class UserFactory
 {
-
     private $generator;
-    public function __construct(Faker $generator)
+    private $model;
+
+    public function __construct(Faker $generator, User $model)
     {
         $this->generator = $generator;
+        $this->model = $model;
     }
 
-    public function generateUser() {
+    public function spawnUser() {
         return [
             'name' => $this->generator->name,
             'email' => $this->generator->unique()->safeEmail,
             'username' => Str::random(10),
         ];
     }
-
-
 }
