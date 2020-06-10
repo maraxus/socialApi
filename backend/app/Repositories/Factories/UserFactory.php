@@ -2,25 +2,48 @@
 namespace App\Repositories\Factories;
 
 use App\Repositories\Models\User;
+use App\Repositories\Support\Contracts\ModelFactoryContract;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
-class UserFactory
+class UserFactory implements ModelFactoryContract
 {
     private $generator;
-    private $model;
+    private $model = User::class;
 
-    public function __construct(Faker $generator, User $model)
+    /**
+     * UserFactory constructor.
+     * @param $generator
+     */
+    public function __construct($generator)
     {
         $this->generator = $generator;
-        $this->model = $model;
     }
 
-    public function spawnUser() {
-        return [
-            'name' => $this->generator->name,
-            'email' => $this->generator->unique()->safeEmail,
-            'username' => Str::random(10),
-        ];
+
+    /**
+     * Generate one or more random users
+     * @param int $quantity
+     * @return array|mixed
+     */
+    public function spawn(int $quantity = 0) {
+        $results = array();
+
+        if (!$quantity) {
+            return new $this->model(
+                $this->generator->name,
+                $this->generator->unique()->safeEmail,
+                Str::random(10)
+            );
+        }
+
+        for ($i = 0;$i <= ($quantity - 1);$i++) {
+            $results[] = new $this->model(
+                $this->generator->name,
+                $this->generator->unique()->safeEmail,
+                Str::random(10)
+            );
+        }
+        return $results;
     }
 }
