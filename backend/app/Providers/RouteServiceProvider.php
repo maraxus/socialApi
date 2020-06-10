@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use App\Repositories\Factories\UserFactory;
+use App\Repositories\Support\Contracts\ModelFactoryContract;
+use Faker\Generator;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -22,6 +25,21 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/home';
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->bind(ModelFactoryContract::class,UserFactory::class);
+        $this->app->bind(UserFactory::class,function ($app){
+            $faker = $app->instance('Faker\Generator', new Generator());
+            return new UserFactory($faker);
+        });
+    }
+
 
     /**
      * Define your route model bindings, pattern filters, etc.
