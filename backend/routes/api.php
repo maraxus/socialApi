@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Facades\App\Repositories\UserRepository as User;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +16,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/user/{username}/friends', function ($username,Request $request) {
-    return 'Hello world '.$username;
+    $results = User::getUserWithRefs($username,'friends')->friends;
+    if (!$results)  return 'no friends';
+    return $results;
 });
 Route::get('/user/{username}/friendsoffriends', function ($username, Request $request) {
-    return 'Hello world '.$username;
+    $results = User::getUserWithRefs($username,'friendsFriends')->friendsFriends;
+    if (!$results)  return 'no friends';
+    return $results;
 });
 Route::patch('/user/{username}/friends', function ($username, Request $request) {
-    return 'Hello world '.$username;
+    $result = User::addUserNewFriend($username, $request->username);
+    if(!$result) return 'username not found';
+    return $result;
 });
