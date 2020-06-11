@@ -34,10 +34,6 @@ class RouteServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(ModelFactoryContract::class,UserFactory::class);
-        $this->app->bind(UserFactory::class,function ($app){
-            $faker = $app->instance('Faker\Generator', new Generator());
-            return new UserFactory($faker);
-        });
     }
 
 
