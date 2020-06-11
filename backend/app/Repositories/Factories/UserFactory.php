@@ -20,6 +20,13 @@ class UserFactory implements ModelFactoryContract
         $this->generator = $generator;
     }
 
+    public function testUser($name) {
+        return new $this->model(
+            $name,
+            $this->generator->unique()->safeEmail,
+            "Usr${name}"
+        );
+    }
 
     /**
      * Generate one or more random users
