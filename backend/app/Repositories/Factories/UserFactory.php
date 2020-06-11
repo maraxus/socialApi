@@ -15,7 +15,7 @@ class UserFactory implements ModelFactoryContract
      * UserFactory constructor.
      * @param $generator
      */
-    public function __construct($generator)
+    public function __construct(Faker $generator)
     {
         $this->generator = $generator;
     }
