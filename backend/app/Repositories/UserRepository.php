@@ -11,7 +11,8 @@ class UserRepository
 
     public function __construct(Factory $factory)
     {
-        $this->userFactory = $factory->spawn(6);
+        $this->userFactory = $factory;
+        $this->userCollection = $factory->spawn(6);
     }
 
     public function getUserWithRefs(string $lookup,string $ref): Collection
