@@ -4,11 +4,17 @@
 namespace App\Repositories\Models;
 
 use Illuminate\Support\Collection;
+use App\Repositories\Models\BaseModel;
 
 class User extends BaseModel
 {
-    protected $refs = [ 'friends' => ['model'=>self::class,'attr'=>'username','matchers'=>['fred','ted','Barney']] ];
-    private $friends = array();
+    protected $refs = [ 'friends' => [
+        'model' => self::class,
+        'attr'=>'username',
+        'refAttr' => 'friends',
+        'matchers'=>[]
+    ] ];
+    public $friends = array();
     public $name;
     public $email;
     public $username;
@@ -41,5 +47,13 @@ class User extends BaseModel
         // to $this->friends collection, on demand
 
         return $this->addToRef('friends', $username);
+    }
+
+    /**
+     * @param array $friends
+     */
+    public function setFriends(Collection $friends): void
+    {
+        $this->friends = $friends;
     }
 }
