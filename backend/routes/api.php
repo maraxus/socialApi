@@ -28,5 +28,5 @@ Route::get('/user/{username}/friendsoffriends', function ($username, Request $re
 Route::patch('/user/{username}/friends', function ($username, Request $request) {
     $result = User::addUserNewFriend($username, $request->username);
     if(!$result) return 'username not found';
-    return $result;
+    return response()->json($result);
 });
