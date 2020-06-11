@@ -15,9 +15,12 @@ class UserRepository
         $this->userCollection = collect($factory->spawn(6));
     }
 
-    public function getUserWithRefs(string $lookup,string $ref): Collection
+    public function getUserWithRefs(string $lookup,string $ref)
     {
-        return collect([]);
+        $user = $this->userCollection->firstWhere('username',$lookup);
+        if (!$user) return false;
+        $user->resolveRes($ref);
+        return $user;
     }
 
     public function addUserNewFriend(string $username, string $friendUsername)

@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 class User extends BaseModel
 {
-    protected $refs = [ 'friends' => [] ];
+    protected $refs = [ 'friends' => ['model'=>self::class,'attr'=>'username','matchers'=>['fred','ted','Barney']] ];
     private $friends = array();
     public $name;
     public $email;
@@ -39,7 +39,7 @@ class User extends BaseModel
     {
         // The idea is that the model saves references as a form of relationship,and the outer repository resolve them
         // to $this->friends collection, on demand
-        
-        return $this->addRef('friends','username',$username);
+
+        return $this->addToRef('friends', $username);
     }
 }
