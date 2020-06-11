@@ -12,7 +12,7 @@ class UserRepository
     public function __construct(Factory $factory)
     {
         $this->userFactory = $factory;
-        $this->userCollection = $factory->spawn(6);
+        $this->userCollection = collect($factory->spawn(6));
     }
 
     public function getUserWithRefs(string $lookup,string $ref): Collection
@@ -20,11 +20,12 @@ class UserRepository
         return collect([]);
     }
 
-    public function addUserNewFriend(string $username, string $friendUsername): bool
+    public function addUserNewFriend(string $username, string $friendUsername)
     {
         $user = $this->userCollection->firstWhere('username',$username);
+        if (!$user) return false;
         $user->addFriend($friendUsername);
-        return true;
+        return $user;
     }
 
 }
