@@ -7,10 +7,16 @@ namespace App\Repositories\Models;
 class BaseModel
 {
     protected $refs = [];
-    protected function addRef(string $refKey,string $searchKey,string $searchValue)
+
+    protected function addToRef(string $refKey, string $searchValue)
     {
-        if (!in_array($refKey,$this->refs)) return false;
-        $this->refs[$refKey][] = [$searchKey,$searchValue];
+        if (!$this->refs[$refKey]) return false;
+        $this->refs[$refKey]['matchers'][] = $searchValue;
         return true;
+    }
+
+    public function getRefs()
+    {
+        return $this->refs;
     }
 }
