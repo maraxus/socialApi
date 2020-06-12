@@ -17,8 +17,11 @@ class UserRepository
         $barney = $this->userFactory->testUser('Barney');
         $Ted = $this->userFactory->testUser('Ted');
         $Marshall = $this->userFactory->testUser('Marshall');
+        $barney->addFriend('UsrTed');
         $this->userCollection->push($barney);
+        $Ted->addFriend('UsrMarshall');
         $this->userCollection->push($Ted);
+        $Marshall->addFriend('UsrBarney');
         $this->userCollection->push($Marshall);
     }
 
@@ -40,7 +43,6 @@ class UserRepository
 
     protected function resolveRef(string $refName, $user)
     {
-        return $user;
         $ref = $user->getRefs()[$refName];
         if (!$ref || count($ref) < 1) return false;
         $search = $this->userCollection->whereIn($ref['attr'],$ref['matchers']);
